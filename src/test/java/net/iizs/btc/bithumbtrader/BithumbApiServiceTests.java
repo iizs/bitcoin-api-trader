@@ -1,6 +1,7 @@
 package net.iizs.btc.bithumbtrader;
 
 import net.iizs.btc.bithumbtrader.model.OrderBook;
+import net.iizs.btc.bithumbtrader.model.RecentTransactions;
 import net.iizs.btc.bithumbtrader.model.Ticker;
 import net.iizs.btc.bithumbtrader.service.BithumbApiService;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class BithumbApiServiceTests {
     private BithumbApiService bithumbApiService;
 
     @Test
-    public void testTicker() throws IOException {
+    public void testGetTicker() throws IOException {
         Call<Ticker> call = bithumbApiService.getTicker("BTC");
         Response<Ticker> response = call.execute();
 
@@ -31,12 +32,22 @@ public class BithumbApiServiceTests {
     }
 
     @Test
-    public void testOrderBook() throws IOException {
+    public void testGetOrderBook() throws IOException {
         Call<OrderBook> call = bithumbApiService.getOrderBook("BTC");
         Response<OrderBook> response = call.execute();
 
         OrderBook orderBook = response.body();
         System.out.println(orderBook);
         assertEquals("0000", orderBook.getStatus());
+    }
+
+    @Test
+    public void testGetRecentTransactions() throws IOException {
+        Call<RecentTransactions> call = bithumbApiService.getRecentTransactions("BTC");
+        Response<RecentTransactions> response = call.execute();
+
+        RecentTransactions recentTransactions = response.body();
+        System.out.println(recentTransactions);
+        assertEquals("0000", recentTransactions.getStatus());
     }
 }

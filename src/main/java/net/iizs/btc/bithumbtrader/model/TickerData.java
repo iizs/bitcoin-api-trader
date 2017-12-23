@@ -14,7 +14,7 @@ public class TickerData {
     private String volume_7day;
     private String buyPrice;
     private String sellPrice;
-    private long date;
+    private String date;
 
     public String getOpeningPrice() {
         return openingPrice;
@@ -96,11 +96,11 @@ public class TickerData {
         this.sellPrice = sellPrice;
     }
 
-    public long getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
