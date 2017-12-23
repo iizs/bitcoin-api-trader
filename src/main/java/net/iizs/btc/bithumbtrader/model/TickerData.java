@@ -104,4 +104,20 @@ public class TickerData {
         this.date = date;
     }
 
+    @Override
+    public String toString() {
+        return "TickerData{" +
+                "openingPrice='" + openingPrice + '\'' +
+                ", closingPrice='" + closingPrice + '\'' +
+                ", minPrice='" + minPrice + '\'' +
+                ", maxPrice='" + maxPrice + '\'' +
+                ", averagePrice='" + averagePrice + '\'' +
+                ", unitsTraded='" + unitsTraded + '\'' +
+                ", volume_1day='" + volume_1day + '\'' +
+                ", volume_7day='" + volume_7day + '\'' +
+                ", buyPrice='" + buyPrice + '\'' +
+                ", sellPrice='" + sellPrice + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }

@@ -19,4 +19,12 @@ public class Ticker {
     public void setData(TickerData data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "Ticker{" +
+                "status='" + status + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

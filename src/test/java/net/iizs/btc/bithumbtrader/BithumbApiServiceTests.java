@@ -25,7 +25,6 @@ public class BithumbApiServiceTests {
 
         Ticker ticker = response.body();
 
-        System.out.println(ticker.getStatus());
-        System.out.println(ticker.getData().getOpeningPrice());
+        System.out.println(ticker);
     }
 }
