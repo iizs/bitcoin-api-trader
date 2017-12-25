@@ -97,25 +97,12 @@ public class BithumbApiServiceTests {
 
     @Test
     public void testGetBalance() throws IOException {
-        String apiKey = "daa741e25086439672a1ee123f8dbe87";
-
-        String nonce = String.valueOf(System.currentTimeMillis());
-        String endpoint = "/info/balance";
-        String str = "/info/balance" + ";" + "endpoint=%2Finfo%2Fbalance" + ";" + nonce;
-
-        String encoded = asHex(hmacSha512(str, secretKey));
-
-        System.out.println(apiKey);
-        System.out.println(encoded);
-        System.out.println(nonce);
-
-        Call<Balance> call = bithumbApiService.getBalance(apiKey, encoded, nonce, endpoint);
+        Call<Balance> call = bithumbApiService.getBalance();
         Response<Balance> response = call.execute();
-
 
         Balance balance = response.body();
         System.out.println(balance);
-//        System.out.println(response.errorBody().string());
+        //System.out.println(response.errorBody().string());
 
         assertEquals("0000", balance.getStatus());
     }

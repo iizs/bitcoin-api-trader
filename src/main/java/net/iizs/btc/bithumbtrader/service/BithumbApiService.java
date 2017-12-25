@@ -30,9 +30,7 @@ public interface BithumbApiService {
     @GET("/public/recent_transactions/{currency}/")
     Call<RecentTransactions> getRecentTransactions(@Path("currency") String currency);
 
-    @FormUrlEncoded
-    @Headers("api-client-type: 2")
     @POST("/info/balance")
-    Call<Balance> getBalance(@Header("Api-Key") String apiKey, @Header("Api-Sign") String apiSign, @Header("Api-Nonce") String nonce, @Field("endpoint") String endpoint);
+    Call<Balance> getBalance();
 
 }
