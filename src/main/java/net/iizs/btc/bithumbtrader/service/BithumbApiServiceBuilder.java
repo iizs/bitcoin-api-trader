@@ -17,7 +17,7 @@ public class BithumbApiServiceBuilder {
         objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.bithumb.com/")
+                .baseUrl("https://api.bithumb.com")
                 .addConverterFactory(JacksonConverterFactory.create(objectMapper))
                 .build();
         return retrofit.create(BithumbApiService.class);
