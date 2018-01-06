@@ -1,9 +1,6 @@
 package net.iizs.btc.bithumbtrader.service;
 
-import net.iizs.btc.bithumbtrader.model.Balance;
-import net.iizs.btc.bithumbtrader.model.OrderBook;
-import net.iizs.btc.bithumbtrader.model.RecentTransactions;
-import net.iizs.btc.bithumbtrader.model.Ticker;
+import net.iizs.btc.bithumbtrader.model.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -36,4 +33,11 @@ public interface BithumbApiService {
     @FormUrlEncoded
     @POST("/info/balance")
     Call<Balance> getBalance(@Field("currency") String currency);
+
+    @POST("/info/account")
+    Call<Account> getAccount();
+
+    @FormUrlEncoded
+    @POST("/info/account")
+    Call<Account> getAccount(@Field("currency") String currency);
 }

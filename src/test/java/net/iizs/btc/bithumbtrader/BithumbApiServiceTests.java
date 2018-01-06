@@ -1,9 +1,6 @@
 package net.iizs.btc.bithumbtrader;
 
-import net.iizs.btc.bithumbtrader.model.Balance;
-import net.iizs.btc.bithumbtrader.model.OrderBook;
-import net.iizs.btc.bithumbtrader.model.RecentTransactions;
-import net.iizs.btc.bithumbtrader.model.Ticker;
+import net.iizs.btc.bithumbtrader.model.*;
 import net.iizs.btc.bithumbtrader.service.BithumbApiService;
 
 import org.junit.Test;
@@ -78,5 +75,27 @@ public class BithumbApiServiceTests {
         //System.out.println(response.errorBody().string());
 
         assertEquals("0000", balance.getStatus());
+    }
+
+    @Test
+    public void testGetAccount() throws IOException {
+        Call<Account> call = bithumbApiService.getAccount();
+        Response<Account> response = call.execute();
+
+        Account account = response.body();
+        System.out.println(account);
+        //System.out.println(response.errorBody().string());
+
+        assertEquals("0000", account.getStatus());
+
+        call = bithumbApiService.getAccount("BCH");
+        response = call.execute();
+
+        account = response.body();
+        System.out.println(account);
+        //System.out.println(response.errorBody().string());
+
+        assertEquals("0000", account.getStatus());
+
     }
 }
