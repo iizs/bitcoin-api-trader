@@ -11,6 +11,11 @@ public class BalanceData {
     private String availableKrw;
     private String xcoinLast;
 
+    private String totalBch;
+    private String inUseBch;
+    private String misuBch;
+    private String availableBch;
+
     public String getTotalBtc() {
         return totalBtc;
     }
@@ -83,6 +88,38 @@ public class BalanceData {
         this.misuBtc = misuBtc;
     }
 
+    public String getTotalBch() {
+        return totalBch;
+    }
+
+    public void setTotalBch(String totalBch) {
+        this.totalBch = totalBch;
+    }
+
+    public String getInUseBch() {
+        return inUseBch;
+    }
+
+    public void setInUseBch(String inUseBch) {
+        this.inUseBch = inUseBch;
+    }
+
+    public String getMisuBch() {
+        return misuBch;
+    }
+
+    public void setMisuBch(String misuBch) {
+        this.misuBch = misuBch;
+    }
+
+    public String getAvailableBch() {
+        return availableBch;
+    }
+
+    public void setAvailableBch(String availableBch) {
+        this.availableBch = availableBch;
+    }
+
     @Override
     public String toString() {
         return "BalanceData{" +
@@ -95,6 +132,10 @@ public class BalanceData {
                 ", availableBtc='" + availableBtc + '\'' +
                 ", availableKrw='" + availableKrw + '\'' +
                 ", xcoinLast='" + xcoinLast + '\'' +
+                ", totalBch='" + totalBch + '\'' +
+                ", inUseBch='" + inUseBch + '\'' +
+                ", misuBch='" + misuBch + '\'' +
+                ", availableBch='" + availableBch + '\'' +
                 '}';
     }
 }

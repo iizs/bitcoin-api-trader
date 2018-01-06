@@ -83,7 +83,12 @@ public class AuthInterceptor implements Interceptor {
             FormBody.Builder formbodyBuilder = new FormBody.Builder();
             formbodyBuilder.add("endpoint", endpoint);
             if ( request.body().contentLength() != 0 ) {
-                // TODO add previous form body
+                if ( request.body() instanceof FormBody ) {
+                    FormBody originalFormBody = (FormBody) request.body();
+                    for (int i=0; i < originalFormBody.size(); ++i) {
+                        formbodyBuilder.addEncoded( originalFormBody.encodedName(i), originalFormBody.encodedValue(i));
+                    }
+                }
             }
             FormBody formbody = formbodyBuilder.build();
             String queryParameters = formBodyToQueryParameters(formbody);

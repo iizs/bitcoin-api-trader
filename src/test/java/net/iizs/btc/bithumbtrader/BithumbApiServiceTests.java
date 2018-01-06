@@ -69,5 +69,14 @@ public class BithumbApiServiceTests {
         //System.out.println(response.errorBody().string());
 
         assertEquals("0000", balance.getStatus());
+
+        call = bithumbApiService.getBalance("BCH");
+        response = call.execute();
+
+        balance = response.body();
+        System.out.println(balance);
+        //System.out.println(response.errorBody().string());
+
+        assertEquals("0000", balance.getStatus());
     }
 }
