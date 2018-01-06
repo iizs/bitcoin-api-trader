@@ -5,8 +5,7 @@ import net.iizs.btc.bithumbtrader.model.OrderBook;
 import net.iizs.btc.bithumbtrader.model.RecentTransactions;
 import net.iizs.btc.bithumbtrader.model.Ticker;
 import net.iizs.btc.bithumbtrader.service.BithumbApiService;
-import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.codec.binary.Base64;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 
 import static org.junit.Assert.*;
 
@@ -59,36 +53,6 @@ public class BithumbApiServiceTests {
         RecentTransactions recentTransactions = response.body();
         System.out.println(recentTransactions);
         assertEquals("0000", recentTransactions.getStatus());
-    }
-
-    public static byte[] hmacSha512(String value, String key) {
-        String DEFAULT_ENCODING = "UTF-8";
-        String HMAC_SHA512 = "HmacSHA512";
-        try {
-            SecretKeySpec keySpec = new SecretKeySpec(
-                    key.getBytes(DEFAULT_ENCODING),
-                    HMAC_SHA512);
-
-            Mac mac = Mac.getInstance(HMAC_SHA512);
-            mac.init(keySpec);
-
-            final byte[] macData = mac.doFinal( value.getBytes( ) );
-            byte[] hex = new Hex().encode( macData );
-
-            //return mac.doFinal(value.getBytes(DEFAULT_ENCODING));
-            return hex;
-
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidKeyException e) {
-            throw new RuntimeException(e);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static String asHex(byte[] bytes) {
-        return new String(Base64.encodeBase64(bytes));
     }
 
     // Defined via command line
