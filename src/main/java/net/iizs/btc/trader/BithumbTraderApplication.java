@@ -2,6 +2,8 @@ package net.iizs.btc.trader;
 
 import net.iizs.btc.trader.service.BithumbApiService;
 import net.iizs.btc.trader.service.BithumbApiServiceBuilder;
+import net.iizs.btc.trader.service.CoinoneApiService;
+import net.iizs.btc.trader.service.CoinoneApiServiceBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,7 +17,7 @@ public class BithumbTraderApplication extends SpringBootServletInitializer {
     }
 
     // Defined via command line
-    @Value("${net.iizs.btc.bithumbtrader.secretkey}")
+    @Value("${net.iizs.btc.bithumbtrader.secretkey:}")
     private String secretKey;
 
     @Value("${net.iizs.btc.bithumbtrader.apikey}")
@@ -27,6 +29,12 @@ public class BithumbTraderApplication extends SpringBootServletInitializer {
         return BithumbApiServiceBuilder.create()
                 .apiKey(apiKey)
                 .secretKey(secretKey)
+                .build();
+    }
+
+    @Bean
+    public CoinoneApiService getCoinoneApiService() {
+        return CoinoneApiServiceBuilder.create()
                 .build();
     }
 }
