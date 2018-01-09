@@ -1,7 +1,6 @@
-package net.iizs.btc.bithumbtrader.interceptor;
+package net.iizs.btc.trader.interceptor;
 
 import okhttp3.*;
-import okio.Buffer;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
@@ -9,17 +8,16 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-public class AuthInterceptor implements Interceptor {
+public class BithumbAuthInterceptor implements Interceptor {
     private String apiKey;
     private String secretKey;
 
-    private AuthInterceptor() { }
+    private BithumbAuthInterceptor() { }
 
-    public AuthInterceptor(String apiKey, String secretKey) {
+    public BithumbAuthInterceptor(String apiKey, String secretKey) {
         this.apiKey = apiKey;
         this.secretKey = secretKey;
     }

@@ -1,8 +1,8 @@
-package net.iizs.btc.bithumbtrader.service;
+package net.iizs.btc.trader.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import net.iizs.btc.bithumbtrader.interceptor.AuthInterceptor;
+import net.iizs.btc.trader.interceptor.BithumbAuthInterceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -34,7 +34,7 @@ public class BithumbApiServiceBuilder {
         objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new AuthInterceptor(apiKey, secretKey))
+                .addInterceptor(new BithumbAuthInterceptor(apiKey, secretKey))
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()

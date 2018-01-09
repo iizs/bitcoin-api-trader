@@ -1,4 +1,4 @@
-package net.iizs.btc.bithumbtrader;
+package net.iizs.btc.trader;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

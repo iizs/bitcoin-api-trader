@@ -1,8 +1,10 @@
-package net.iizs.btc.bithumbtrader.model;
+package net.iizs.btc.trader.model.bithumb;
 
-public class Ticker {
+import java.util.List;
+
+public class RecentTransactions {
     private String status;
-    private TickerData data;
+    private List<PublicTransaction> data;
 
     public String getStatus() {
         return status;
@@ -12,17 +14,17 @@ public class Ticker {
         this.status = status;
     }
 
-    public TickerData getData() {
+    public List<PublicTransaction> getData() {
         return data;
     }
 
-    public void setData(TickerData data) {
+    public void setData(List<PublicTransaction> data) {
         this.data = data;
     }
 
     @Override
     public String toString() {
-        return "Ticker{" +
+        return "RecentTransactions{" +
                 "status='" + status + '\'' +
                 ", data=" + data +
                 '}';

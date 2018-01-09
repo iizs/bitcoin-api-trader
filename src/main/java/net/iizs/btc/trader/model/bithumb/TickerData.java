@@ -1,4 +1,4 @@
-package net.iizs.btc.bithumbtrader.model;
+package net.iizs.btc.trader.model.bithumb;
 
 //import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

@@ -1,8 +1,8 @@
-package net.iizs.btc.bithumbtrader.model;
+package net.iizs.btc.trader.model.bithumb;
 
-public class Account {
+public class Ticker {
     private String status;
-    private AccountData data;
+    private TickerData data;
 
     public String getStatus() {
         return status;
@@ -12,17 +12,17 @@ public class Account {
         this.status = status;
     }
 
-    public AccountData getData() {
+    public TickerData getData() {
         return data;
     }
 
-    public void setData(AccountData data) {
+    public void setData(TickerData data) {
         this.data = data;
     }
 
     @Override
     public String toString() {
-        return "Account{" +
+        return "Ticker{" +
                 "status='" + status + '\'' +
                 ", data=" + data +
                 '}';

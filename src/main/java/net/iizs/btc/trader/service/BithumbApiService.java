@@ -1,6 +1,6 @@
-package net.iizs.btc.bithumbtrader.service;
+package net.iizs.btc.trader.service;
 
-import net.iizs.btc.bithumbtrader.model.*;
+import net.iizs.btc.trader.model.bithumb.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 

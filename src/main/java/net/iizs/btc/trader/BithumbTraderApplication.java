@@ -1,7 +1,7 @@
-package net.iizs.btc.bithumbtrader;
+package net.iizs.btc.trader;
 
-import net.iizs.btc.bithumbtrader.service.BithumbApiService;
-import net.iizs.btc.bithumbtrader.service.BithumbApiServiceBuilder;
+import net.iizs.btc.trader.service.BithumbApiService;
+import net.iizs.btc.trader.service.BithumbApiServiceBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

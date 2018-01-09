@@ -1,7 +1,7 @@
-package net.iizs.btc.bithumbtrader;
+package net.iizs.btc.trader;
 
-import net.iizs.btc.bithumbtrader.model.*;
-import net.iizs.btc.bithumbtrader.service.BithumbApiService;
+import net.iizs.btc.trader.model.bithumb.*;
+import net.iizs.btc.trader.service.BithumbApiService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -84,6 +84,7 @@ public class BithumbApiServiceTests {
 
         Account account = response.body();
         System.out.println(account);
+        System.out.println(account.message);
         //System.out.println(response.errorBody().string());
 
         assertEquals("0000", account.getStatus());
