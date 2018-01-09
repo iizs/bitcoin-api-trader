@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.iizs.btc</groupId>
-    <artifactId>bithumb-trader</artifactId>
+    <artifactId>bitcoin-api-trader</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <!--<packaging>war</packaging>-->
 
-    <name>bithumb-trader</name>
-    <description>bithumb trader</description>
+    <name>bitcoin-api-trader</name>
+    <description>bitcoin-api-trader</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
