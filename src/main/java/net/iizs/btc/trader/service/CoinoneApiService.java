@@ -17,4 +17,24 @@ public interface CoinoneApiService {
      */
     @GET("/orderbook/")
     Call<OrderBook> getOrderBook(@Query("currency") String currency);
+
+    /*
+     * run as default currency, btc and default period hour
+     */
+    @GET("/trades/")
+    Call<RecentCompleteOrders> getRecentCompleteOrders();
+
+    /*
+     * currency = btc, bch, eth, etc, xrp, qtum, iota, ltc, btg
+     * period defaults to hour
+     */
+    @GET("/trades/")
+    Call<RecentCompleteOrders> getRecentCompleteOrders(@Query("currency") String currency);
+
+    /*
+     * currency = btc, bch, eth, etc, xrp, qtum, iota, ltc, btg
+     * period = hour, day
+     */
+    @GET("/trades/")
+    Call<RecentCompleteOrders> getRecentCompleteOrders(@Query("currency") String currency, @Query("period") String period);
 }

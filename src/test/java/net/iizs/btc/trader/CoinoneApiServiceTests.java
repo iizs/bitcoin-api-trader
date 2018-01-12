@@ -37,4 +37,28 @@ public class CoinoneApiServiceTests {
         System.out.println(orderBook);
         assertEquals(0, orderBook.getErrorCode());
     }
+
+    @Test
+    public void testGetRecentCompleteOrders() throws IOException {
+        Call<RecentCompleteOrders> call = coinoneApiService.getRecentCompleteOrders();
+        Response<RecentCompleteOrders> response = call.execute();
+
+        RecentCompleteOrders recentCompleteOrders = response.body();
+        System.out.println(recentCompleteOrders);
+        assertEquals(0, recentCompleteOrders.getErrorCode());
+
+        call = coinoneApiService.getRecentCompleteOrders("xrp");
+        response = call.execute();
+
+        recentCompleteOrders = response.body();
+        System.out.println(recentCompleteOrders);
+        assertEquals(0, recentCompleteOrders.getErrorCode());
+
+        call = coinoneApiService.getRecentCompleteOrders("xrp", "day");
+        response = call.execute();
+
+        recentCompleteOrders = response.body();
+        System.out.println(recentCompleteOrders);
+        assertEquals(0, recentCompleteOrders.getErrorCode());
+    }
 }

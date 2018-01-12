@@ -43,7 +43,10 @@ public class OrderBook extends Response {
     @Override
     public String toString() {
         return "OrderBook{" +
-                "ask=" + ask +
+                "result='" + getResult() + '\'' +
+                ", errorCode=" + getErrorCode() +
+                ", errorMsg='" + getErrorMsg() + '\'' +
+                ", ask=" + ask +
                 ", bid=" + bid +
                 ", timestamp=" + timestamp +
                 ", currency='" + currency + '\'' +
