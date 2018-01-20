@@ -37,4 +37,14 @@ public interface CoinoneApiService {
      */
     @GET("/trades/")
     Call<RecentCompleteOrders> getRecentCompleteOrders(@Query("currency") String currency, @Query("period") String period);
+
+    /*
+     * currency = btc, bch, eth, etc, xrp, qtum, iota, ltc, btg
+     * for all currency, use getTickerAll()
+     */
+    @GET("/ticker/")
+    Call<Ticker> getTicker(@Query("currency") String currency);
+
+    @GET("/ticker/?currency=all")
+    Call<TickerAll> getTickerAll();
 }

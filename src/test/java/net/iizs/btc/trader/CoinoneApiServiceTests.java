@@ -61,4 +61,24 @@ public class CoinoneApiServiceTests {
         System.out.println(recentCompleteOrders);
         assertEquals(0, recentCompleteOrders.getErrorCode());
     }
+
+    @Test
+    public void testGetTicker() throws IOException {
+        Call<Ticker> call = coinoneApiService.getTicker("xrp");
+        Response<Ticker> response = call.execute();
+
+        Ticker ticker = response.body();
+        System.out.println(ticker);
+        assertEquals(0, ticker.getErrorCode());
+    }
+
+    @Test
+    public void testGetTickerAll() throws IOException {
+        Call<TickerAll> call = coinoneApiService.getTickerAll();
+        Response<TickerAll> response = call.execute();
+
+        TickerAll tickerAll = response.body();
+        System.out.println(tickerAll);
+        assertEquals(0, tickerAll.getErrorCode());
+    }
 }
