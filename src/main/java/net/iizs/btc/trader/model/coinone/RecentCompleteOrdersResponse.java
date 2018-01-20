@@ -2,7 +2,7 @@ package net.iizs.btc.trader.model.coinone;
 
 import java.util.List;
 
-public class RecentCompleteOrders extends Response {
+public class RecentCompleteOrdersResponse extends Response {
     private List<CompleteOrder> completeOrders;
     private String currency;
     private long timestamp;

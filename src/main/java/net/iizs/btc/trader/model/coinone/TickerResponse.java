@@ -1,7 +1,7 @@
 package net.iizs.btc.trader.model.coinone;
 
 // All values mean that of 24 hours
-public class Ticker extends Response {
+public class TickerResponse extends Response {
     private long high;
     private long low;
     private long first;

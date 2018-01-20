@@ -11,24 +11,24 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class BithumbTraderApplication extends SpringBootServletInitializer {
+public class BitcoinTraderApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
-        SpringApplication.run(BithumbTraderApplication.class, args);
+        SpringApplication.run(BitcoinTraderApplication.class, args);
     }
 
     // Defined via command line
-    @Value("${net.iizs.btc.bithumbtrader.secretkey:}")
-    private String secretKey;
+    @Value("${net.iizs.btc.bithumbtrader.secretkey}")
+    private String bithumbSecretKey;
 
     @Value("${net.iizs.btc.bithumbtrader.apikey}")
-    private String apiKey;
+    private String bithumbApiKey;
 
 
     @Bean
     public BithumbApiService getBithumbApiService() {
         return BithumbApiServiceBuilder.create()
-                .apiKey(apiKey)
-                .secretKey(secretKey)
+                .apiKey(bithumbApiKey)
+                .secretKey(bithumbSecretKey)
                 .build();
     }
 

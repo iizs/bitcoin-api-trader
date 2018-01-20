@@ -5,7 +5,6 @@ import net.iizs.btc.trader.service.CoinoneApiService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import retrofit2.Call;
@@ -23,62 +22,62 @@ public class CoinoneApiServiceTests {
 
     @Test
     public void testGetOrderBook() throws IOException {
-        Call<OrderBook> call = coinoneApiService.getOrderBook();
-        Response<OrderBook> response = call.execute();
+        Call<OrderBookResponse> call = coinoneApiService.getOrderBook();
+        Response<OrderBookResponse> response = call.execute();
 
-        OrderBook orderBook = response.body();
-        System.out.println(orderBook);
-        assertEquals(0, orderBook.getErrorCode());
+        OrderBookResponse orderBookResponse = response.body();
+        System.out.println(orderBookResponse);
+        assertEquals(0, orderBookResponse.getErrorCode());
 
         call = coinoneApiService.getOrderBook("xrp");
         response = call.execute();
 
-        orderBook = response.body();
-        System.out.println(orderBook);
-        assertEquals(0, orderBook.getErrorCode());
+        orderBookResponse = response.body();
+        System.out.println(orderBookResponse);
+        assertEquals(0, orderBookResponse.getErrorCode());
     }
 
     @Test
     public void testGetRecentCompleteOrders() throws IOException {
-        Call<RecentCompleteOrders> call = coinoneApiService.getRecentCompleteOrders();
-        Response<RecentCompleteOrders> response = call.execute();
+        Call<RecentCompleteOrdersResponse> call = coinoneApiService.getRecentCompleteOrders();
+        Response<RecentCompleteOrdersResponse> response = call.execute();
 
-        RecentCompleteOrders recentCompleteOrders = response.body();
-        System.out.println(recentCompleteOrders);
-        assertEquals(0, recentCompleteOrders.getErrorCode());
+        RecentCompleteOrdersResponse recentCompleteOrdersResponse = response.body();
+        System.out.println(recentCompleteOrdersResponse);
+        assertEquals(0, recentCompleteOrdersResponse.getErrorCode());
 
         call = coinoneApiService.getRecentCompleteOrders("xrp");
         response = call.execute();
 
-        recentCompleteOrders = response.body();
-        System.out.println(recentCompleteOrders);
-        assertEquals(0, recentCompleteOrders.getErrorCode());
+        recentCompleteOrdersResponse = response.body();
+        System.out.println(recentCompleteOrdersResponse);
+        assertEquals(0, recentCompleteOrdersResponse.getErrorCode());
 
         call = coinoneApiService.getRecentCompleteOrders("xrp", "day");
         response = call.execute();
 
-        recentCompleteOrders = response.body();
-        System.out.println(recentCompleteOrders);
-        assertEquals(0, recentCompleteOrders.getErrorCode());
+        recentCompleteOrdersResponse = response.body();
+        System.out.println(recentCompleteOrdersResponse);
+        assertEquals(0, recentCompleteOrdersResponse.getErrorCode());
     }
 
     @Test
     public void testGetTicker() throws IOException {
-        Call<Ticker> call = coinoneApiService.getTicker("xrp");
-        Response<Ticker> response = call.execute();
+        Call<TickerResponse> call = coinoneApiService.getTicker("xrp");
+        Response<TickerResponse> response = call.execute();
 
-        Ticker ticker = response.body();
-        System.out.println(ticker);
-        assertEquals(0, ticker.getErrorCode());
+        TickerResponse tickerResponse = response.body();
+        System.out.println(tickerResponse);
+        assertEquals(0, tickerResponse.getErrorCode());
     }
 
     @Test
     public void testGetTickerAll() throws IOException {
-        Call<TickerAll> call = coinoneApiService.getTickerAll();
-        Response<TickerAll> response = call.execute();
+        Call<TickerAllResponse> call = coinoneApiService.getTickerAll();
+        Response<TickerAllResponse> response = call.execute();
 
-        TickerAll tickerAll = response.body();
-        System.out.println(tickerAll);
-        assertEquals(0, tickerAll.getErrorCode());
+        TickerAllResponse tickerAllResponse = response.body();
+        System.out.println(tickerAllResponse);
+        assertEquals(0, tickerAllResponse.getErrorCode());
     }
 }

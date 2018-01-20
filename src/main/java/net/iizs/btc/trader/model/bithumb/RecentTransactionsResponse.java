@@ -2,17 +2,8 @@ package net.iizs.btc.trader.model.bithumb;
 
 import java.util.List;
 
-public class RecentTransactions {
-    private String status;
+public class RecentTransactionsResponse extends Response{
     private List<PublicTransaction> data;
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public List<PublicTransaction> getData() {
         return data;

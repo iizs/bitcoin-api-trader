@@ -24,32 +24,32 @@ public class BithumbApiServiceTests {
 
     @Test
     public void testGetTicker() throws IOException {
-        Call<Ticker> call = bithumbApiService.getTicker("BTC");
-        Response<Ticker> response = call.execute();
+        Call<TickerResponse> call = bithumbApiService.getTicker("BTC");
+        Response<TickerResponse> response = call.execute();
 
-        Ticker ticker = response.body();
-        System.out.println(ticker);
-        assertEquals("0000", ticker.getStatus());
+        TickerResponse tickerResponse = response.body();
+        System.out.println(tickerResponse);
+        assertEquals("0000", tickerResponse.getStatus());
     }
 
     @Test
     public void testGetOrderBook() throws IOException {
-        Call<OrderBook> call = bithumbApiService.getOrderBook("BTC");
-        Response<OrderBook> response = call.execute();
+        Call<OrderBookResponse> call = bithumbApiService.getOrderBook("BTC");
+        Response<OrderBookResponse> response = call.execute();
 
-        OrderBook orderBook = response.body();
-        System.out.println(orderBook);
-        assertEquals("0000", orderBook.getStatus());
+        OrderBookResponse orderBookResponse = response.body();
+        System.out.println(orderBookResponse);
+        assertEquals("0000", orderBookResponse.getStatus());
     }
 
     @Test
     public void testGetRecentTransactions() throws IOException {
-        Call<RecentTransactions> call = bithumbApiService.getRecentTransactions("BTC");
-        Response<RecentTransactions> response = call.execute();
+        Call<RecentTransactionsResponse> call = bithumbApiService.getRecentTransactions("BTC");
+        Response<RecentTransactionsResponse> response = call.execute();
 
-        RecentTransactions recentTransactions = response.body();
-        System.out.println(recentTransactions);
-        assertEquals("0000", recentTransactions.getStatus());
+        RecentTransactionsResponse recentTransactionsResponse = response.body();
+        System.out.println(recentTransactionsResponse);
+        assertEquals("0000", recentTransactionsResponse.getStatus());
     }
 
     // Defined via command line
@@ -58,45 +58,45 @@ public class BithumbApiServiceTests {
 
     @Test
     public void testGetBalance() throws IOException {
-        Call<Balance> call = bithumbApiService.getBalance();
-        Response<Balance> response = call.execute();
+        Call<BalanceResponse> call = bithumbApiService.getBalance();
+        Response<BalanceResponse> response = call.execute();
 
-        Balance balance = response.body();
-        System.out.println(balance);
+        BalanceResponse balanceResponse = response.body();
+        System.out.println(balanceResponse);
         //System.out.println(response.errorBody().string());
 
-        assertEquals("0000", balance.getStatus());
+        assertEquals("0000", balanceResponse.getStatus());
 
         call = bithumbApiService.getBalance("BCH");
         response = call.execute();
 
-        balance = response.body();
-        System.out.println(balance);
+        balanceResponse = response.body();
+        System.out.println(balanceResponse);
         //System.out.println(response.errorBody().string());
 
-        assertEquals("0000", balance.getStatus());
+        assertEquals("0000", balanceResponse.getStatus());
     }
 
     @Test
     public void testGetAccount() throws IOException {
-        Call<Account> call = bithumbApiService.getAccount();
-        Response<Account> response = call.execute();
+        Call<AccountResponse> call = bithumbApiService.getAccount();
+        Response<AccountResponse> response = call.execute();
 
-        Account account = response.body();
-        System.out.println(account);
-        System.out.println(account.message);
+        AccountResponse accountResponse = response.body();
+        System.out.println(accountResponse);
+        //System.out.println(account.message);
         //System.out.println(response.errorBody().string());
 
-        assertEquals("0000", account.getStatus());
+        assertEquals("0000", accountResponse.getStatus());
 
         call = bithumbApiService.getAccount("BCH");
         response = call.execute();
 
-        account = response.body();
-        System.out.println(account);
+        accountResponse = response.body();
+        System.out.println(accountResponse);
         //System.out.println(response.errorBody().string());
 
-        assertEquals("0000", account.getStatus());
+        assertEquals("0000", accountResponse.getStatus());
 
     }
 }

@@ -2,7 +2,7 @@ package net.iizs.btc.trader.model.coinone;
 
 import java.util.List;
 
-public class OrderBook extends Response {
+public class OrderBookResponse extends Response {
     private List<Ask> ask;
     private List<Bid> bid;
     private long timestamp;
