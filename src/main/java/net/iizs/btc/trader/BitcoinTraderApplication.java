@@ -1,9 +1,6 @@
 package net.iizs.btc.trader;
 
-import net.iizs.btc.trader.service.BithumbApiService;
-import net.iizs.btc.trader.service.BithumbApiServiceBuilder;
-import net.iizs.btc.trader.service.CoinoneApiService;
-import net.iizs.btc.trader.service.CoinoneApiServiceBuilder;
+import net.iizs.btc.trader.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,5 +33,10 @@ public class BitcoinTraderApplication extends SpringBootServletInitializer {
     public CoinoneApiService getCoinoneApiService() {
         return CoinoneApiServiceBuilder.create()
                 .build();
+    }
+
+    @Bean
+    public TickerService getTickerService() {
+        return new TickerServiceImpl();
     }
 }
