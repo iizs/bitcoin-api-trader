@@ -1,7 +1,9 @@
 package net.iizs.btc.trader.model.coinone;
 
+import net.iizs.btc.trader.model.TickerInput;
+
 // All values mean that of 24 hours
-public class TickerResponse extends Response {
+public class TickerResponse extends Response implements TickerInput{
     private long high;
     private long low;
     private long first;
@@ -43,6 +45,12 @@ public class TickerResponse extends Response {
         return last;
     }
 
+    // coinone uses term 'last' instead of 'current price'
+    @Override
+    public long getCurrentPrice() {
+        return getLast();
+    }
+
     public void setLast(long last) {
         this.last = last;
     }
@@ -61,6 +69,12 @@ public class TickerResponse extends Response {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    @Override
+    public String getExchangeName() {
+        // @TODO hardcoded name
+        return "coinone";
     }
 
     public String getCurrency() {
