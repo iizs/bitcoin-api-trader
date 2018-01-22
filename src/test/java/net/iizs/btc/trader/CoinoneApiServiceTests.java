@@ -4,6 +4,8 @@ import net.iizs.btc.trader.model.coinone.*;
 import net.iizs.btc.trader.service.CoinoneApiService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -20,20 +22,22 @@ public class CoinoneApiServiceTests {
     @Autowired
     private CoinoneApiService coinoneApiService;
 
+    private static final Logger log = LoggerFactory.getLogger(CoinoneApiServiceTests.class);
+
     @Test
     public void testGetOrderBook() throws IOException {
         Call<OrderBookResponse> call = coinoneApiService.getOrderBook();
         Response<OrderBookResponse> response = call.execute();
 
         OrderBookResponse orderBookResponse = response.body();
-        System.out.println(orderBookResponse);
+        log.debug(orderBookResponse.toString());
         assertEquals(0, orderBookResponse.getErrorCode());
 
         call = coinoneApiService.getOrderBook("xrp");
         response = call.execute();
 
         orderBookResponse = response.body();
-        System.out.println(orderBookResponse);
+        log.debug(orderBookResponse.toString());
         assertEquals(0, orderBookResponse.getErrorCode());
     }
 
@@ -43,21 +47,21 @@ public class CoinoneApiServiceTests {
         Response<RecentCompleteOrdersResponse> response = call.execute();
 
         RecentCompleteOrdersResponse recentCompleteOrdersResponse = response.body();
-        System.out.println(recentCompleteOrdersResponse);
+        log.debug(recentCompleteOrdersResponse.toString());
         assertEquals(0, recentCompleteOrdersResponse.getErrorCode());
 
         call = coinoneApiService.getRecentCompleteOrders("xrp");
         response = call.execute();
 
         recentCompleteOrdersResponse = response.body();
-        System.out.println(recentCompleteOrdersResponse);
+        log.debug(recentCompleteOrdersResponse.toString());
         assertEquals(0, recentCompleteOrdersResponse.getErrorCode());
 
         call = coinoneApiService.getRecentCompleteOrders("xrp", "day");
         response = call.execute();
 
         recentCompleteOrdersResponse = response.body();
-        System.out.println(recentCompleteOrdersResponse);
+        log.debug(recentCompleteOrdersResponse.toString());
         assertEquals(0, recentCompleteOrdersResponse.getErrorCode());
     }
 
@@ -67,7 +71,7 @@ public class CoinoneApiServiceTests {
         Response<TickerResponse> response = call.execute();
 
         TickerResponse tickerResponse = response.body();
-        System.out.println(tickerResponse);
+        log.debug(tickerResponse.toString());
         assertEquals(0, tickerResponse.getErrorCode());
     }
 
@@ -77,7 +81,7 @@ public class CoinoneApiServiceTests {
         Response<TickerAllResponse> response = call.execute();
 
         TickerAllResponse tickerAllResponse = response.body();
-        System.out.println(tickerAllResponse);
+        log.debug(tickerAllResponse.toString());
         assertEquals(0, tickerAllResponse.getErrorCode());
     }
 }

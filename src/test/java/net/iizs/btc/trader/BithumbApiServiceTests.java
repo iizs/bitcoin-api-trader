@@ -5,6 +5,8 @@ import net.iizs.btc.trader.service.BithumbApiService;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,13 +24,15 @@ public class BithumbApiServiceTests {
     @Autowired
     private BithumbApiService bithumbApiService;
 
+    private static final Logger log = LoggerFactory.getLogger(BithumbApiServiceTests.class);
+
     @Test
     public void testGetTicker() throws IOException {
         Call<TickerResponse> call = bithumbApiService.getTicker("BTC");
         Response<TickerResponse> response = call.execute();
 
         TickerResponse tickerResponse = response.body();
-        System.out.println(tickerResponse);
+        log.debug(tickerResponse.toString());
         assertEquals("0000", tickerResponse.getStatus());
     }
 
@@ -38,7 +42,7 @@ public class BithumbApiServiceTests {
         Response<OrderBookResponse> response = call.execute();
 
         OrderBookResponse orderBookResponse = response.body();
-        System.out.println(orderBookResponse);
+        log.debug(orderBookResponse.toString());
         assertEquals("0000", orderBookResponse.getStatus());
     }
 
@@ -48,7 +52,7 @@ public class BithumbApiServiceTests {
         Response<RecentTransactionsResponse> response = call.execute();
 
         RecentTransactionsResponse recentTransactionsResponse = response.body();
-        System.out.println(recentTransactionsResponse);
+        log.debug(recentTransactionsResponse.toString());
         assertEquals("0000", recentTransactionsResponse.getStatus());
     }
 
@@ -62,8 +66,8 @@ public class BithumbApiServiceTests {
         Response<BalanceResponse> response = call.execute();
 
         BalanceResponse balanceResponse = response.body();
-        System.out.println(balanceResponse);
-        //System.out.println(response.errorBody().string());
+        log.debug(balanceResponse.toString());
+        //log.debug(response.errorBody().string());
 
         assertEquals("0000", balanceResponse.getStatus());
 
@@ -71,8 +75,8 @@ public class BithumbApiServiceTests {
         response = call.execute();
 
         balanceResponse = response.body();
-        System.out.println(balanceResponse);
-        //System.out.println(response.errorBody().string());
+        log.debug(balanceResponse.toString());
+        //log.debug(response.errorBody().string());
 
         assertEquals("0000", balanceResponse.getStatus());
     }
@@ -83,9 +87,9 @@ public class BithumbApiServiceTests {
         Response<AccountResponse> response = call.execute();
 
         AccountResponse accountResponse = response.body();
-        System.out.println(accountResponse);
-        //System.out.println(account.message);
-        //System.out.println(response.errorBody().string());
+        log.debug(accountResponse.toString());
+        //log.debug(account.message);
+        //log.debug(response.errorBody().string());
 
         assertEquals("0000", accountResponse.getStatus());
 
@@ -93,8 +97,8 @@ public class BithumbApiServiceTests {
         response = call.execute();
 
         accountResponse = response.body();
-        System.out.println(accountResponse);
-        //System.out.println(response.errorBody().string());
+        log.debug(accountResponse.toString());
+        //log.debug(response.errorBody().string());
 
         assertEquals("0000", accountResponse.getStatus());
 

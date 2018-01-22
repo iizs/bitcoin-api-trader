@@ -4,6 +4,8 @@ import net.iizs.btc.trader.model.TickerInput;
 import net.iizs.btc.trader.service.TickerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -20,6 +22,8 @@ import static org.junit.Assert.assertEquals;
 public class TickerServiceTest {
     @Autowired
     private TickerService tickerSerivce;
+
+    private static final Logger log = LoggerFactory.getLogger(TickerServiceTest.class);
 
     private class DummyTickerInput implements TickerInput {
         private String exchangeName;
@@ -70,8 +74,7 @@ public class TickerServiceTest {
         }
 
         BigInteger avr = sum.divide(BigInteger.valueOf(list.size()));
-        //System.out.println(list);
-        //System.out.println(avr);
+
         return avr.longValue();
     }
 
