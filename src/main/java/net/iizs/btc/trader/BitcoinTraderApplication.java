@@ -16,10 +16,10 @@ public class BitcoinTraderApplication extends SpringBootServletInitializer {
     }
 
     // Defined via command line
-    @Value("${net.iizs.btc.bithumbtrader.secretkey}")
+    @Value("${net.iizs.btc.trader.bithumb.secretkey}")
     private String bithumbSecretKey;
 
-    @Value("${net.iizs.btc.bithumbtrader.apikey}")
+    @Value("${net.iizs.btc.trader.bithumb.apikey}")
     private String bithumbApiKey;
 
 
