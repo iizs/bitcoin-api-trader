@@ -1,6 +1,7 @@
 package net.iizs.btc.trader;
 
 import net.iizs.btc.trader.model.TickerInput;
+import net.iizs.btc.trader.model.TickerValue;
 import net.iizs.btc.trader.service.TickerService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -132,5 +133,10 @@ public class TickerServiceTest {
         assertEquals(avrTwoXrp20, tickerSerivce.getLast("two", "xrp").getMovingAverage20CurrentPrice());
         assertEquals(avrTwoXrp90, tickerSerivce.getLast("two", "xrp").getMovingAverage90CurrentPrice());
         assertEquals(avrTwoXrp120, tickerSerivce.getLast("two", "xrp").getMovingAverage120CurrentPrice());
+
+        List<TickerValue> list;
+
+        list = tickerSerivce.getRecentValues("one", "btc", 10);
+        assertEquals(10, list.size());
     }
 }

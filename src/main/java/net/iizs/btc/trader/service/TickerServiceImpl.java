@@ -1,18 +1,26 @@
 package net.iizs.btc.trader.service;
 
 import net.iizs.btc.trader.model.TickerInput;
+import net.iizs.btc.trader.model.TickerServiceStatus;
+import net.iizs.btc.trader.model.TickerStatus;
 import net.iizs.btc.trader.model.TickerValue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigInteger;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class TickerServiceImpl implements TickerService {
-    private Map<String, Map<String, Deque<TickerValue>>> exchangeMap;
     private static final long MAX_DEQUE_CAPACITY = TimeUnit.DAYS.toSeconds(1);
+    private static final Logger log = LoggerFactory.getLogger(TickerServiceImpl.class);
+
+    private Map<String, Map<String, Deque<TickerValue>>> exchangeMap;
+    private TickerServiceStatus tickerServiceStatus;
 
     public TickerServiceImpl() {
         exchangeMap = new HashMap<>();
+        tickerServiceStatus = new TickerServiceStatus();
     }
 
     @Override
@@ -43,7 +51,7 @@ public class TickerServiceImpl implements TickerService {
             return exchangeMap.get(exchangeName).get(currency).getLast();
         } catch ( NullPointerException e ) {
             if ( exchangeMap.get(exchangeName) == null || exchangeMap.get(exchangeName).get(currency) == null ) {
-                return null;
+                throw new NoSuchElementException("Could not find exchangeName = " + exchangeName + ", currency = " + currency );
             }
             throw e;
         }
@@ -94,4 +102,58 @@ public class TickerServiceImpl implements TickerService {
         return new ArrayDeque<>((int) MAX_DEQUE_CAPACITY);
     }
 
+    @Override
+    public List<TickerValue> getRecentValues(String exchangeName, String currency, int size) {
+        try {
+            Deque<TickerValue> deque =  exchangeMap.get(exchangeName).get(currency);
+            List<TickerValue> list = new ArrayList<>(size);
+
+            Iterator<TickerValue> iter = deque.descendingIterator();
+            int cnt = 0;
+            while( iter.hasNext() && cnt < size ) {
+                TickerValue i = iter.next();
+                list.add(0, i);
+                cnt += 1;
+            }
+
+            return list;
+        } catch ( NullPointerException e ) {
+            if ( exchangeMap.get(exchangeName) == null || exchangeMap.get(exchangeName).get(currency) == null ) {
+                throw new NoSuchElementException("Could not find exchangeName = " + exchangeName + ", currency = " + currency);
+            }
+            throw e;
+        }
+    }
+
+    @Override
+    public TickerServiceStatus getStatus() {
+        synchronized ( tickerServiceStatus ) {
+            long tickerValuesSize = 0;
+
+            for (Map.Entry<String, Map<String, Deque<TickerValue>>> exchangeEntry : exchangeMap.entrySet()) {
+                for (Map.Entry<String, Deque<TickerValue>> currencyEntry : exchangeEntry.getValue().entrySet()) {
+                    Deque<TickerValue> values = currencyEntry.getValue();
+                    long lastUpdateTimestamp = values.getLast().getTimestamp();
+
+                    TickerStatus tickerStatus = new TickerStatus();
+                    tickerStatus.setExchangeName(exchangeEntry.getKey());
+                    tickerStatus.setCurrency(currencyEntry.getKey());
+                    tickerStatus.setLastUpdateTimestamp(lastUpdateTimestamp);
+                    tickerStatus.setSize(values.size());
+
+                    tickerValuesSize += values.size();
+
+                    tickerServiceStatus.addTickerStatus(exchangeEntry.getKey(), currencyEntry.getKey(), tickerStatus);
+
+                    if (lastUpdateTimestamp > tickerServiceStatus.getLastUpdateTimestamp()) {
+                        tickerServiceStatus.setLastUpdateTimestamp(lastUpdateTimestamp);
+                    }
+                }
+            }
+
+            tickerServiceStatus.setTickerValuesSize(tickerValuesSize);
+
+            return tickerServiceStatus;
+        }
+    }
 }

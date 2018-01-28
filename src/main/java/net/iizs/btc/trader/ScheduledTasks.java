@@ -34,6 +34,7 @@ public class ScheduledTasks {
     // Run every 5 seconds
     @Scheduled(fixedRate = 5000)
     public void updateTicker() {
+        log.info("updateTicker() started");
         try {
             Call<TickerAllResponse> call = coinoneApiService.getTickerAll();
             Response<TickerAllResponse> response = call.execute();
@@ -46,12 +47,12 @@ public class ScheduledTasks {
 
             for ( String currency : COINONE_CURRENCIES ) {
                 TickerValue value = tickerService.getLast("coinone", currency);
-                log.info(value.toString());
+                log.debug(value.toString());
             }
 
         } catch ( IOException e ) {
             log.error(e.getMessage());
         }
-
+        log.info("updateTicker() completed");
     }
 }
