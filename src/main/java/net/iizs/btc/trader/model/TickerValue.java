@@ -1,30 +1,12 @@
 package net.iizs.btc.trader.model;
 
 public class TickerValue {
-    private String exchangeName;
-    private String currency;
     private long timestamp;
     private long currentPrice;
     private long movingAverage5CurrentPrice;
     private long movingAverage20CurrentPrice;
     private long movingAverage90CurrentPrice;
     private long movingAverage120CurrentPrice;
-
-    public String getExchangeName() {
-        return exchangeName;
-    }
-
-    public void setExchangeName(String exchangeName) {
-        this.exchangeName = exchangeName;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
 
     public long getTimestamp() {
         return timestamp;
@@ -77,9 +59,7 @@ public class TickerValue {
     @Override
     public String toString() {
         return "TickerValue{" +
-                "exchangeName='" + exchangeName + '\'' +
-                ", currency='" + currency + '\'' +
-                ", timestamp=" + timestamp +
+                "timestamp=" + timestamp +
                 ", currentPrice=" + currentPrice +
                 ", movingAverage5CurrentPrice=" + movingAverage5CurrentPrice +
                 ", movingAverage20CurrentPrice=" + movingAverage20CurrentPrice +

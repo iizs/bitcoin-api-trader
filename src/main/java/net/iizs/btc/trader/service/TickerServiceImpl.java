@@ -1,9 +1,6 @@
 package net.iizs.btc.trader.service;
 
-import net.iizs.btc.trader.model.TickerInput;
-import net.iizs.btc.trader.model.TickerServiceStatus;
-import net.iizs.btc.trader.model.TickerStatus;
-import net.iizs.btc.trader.model.TickerValue;
+import net.iizs.btc.trader.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,8 +57,6 @@ public class TickerServiceImpl implements TickerService {
     private TickerValue makeTickerValue(TickerInput input, Deque<TickerValue> tickerValueDeque) {
         TickerValue v = new TickerValue();
 
-        v.setExchangeName(input.getExchangeName());
-        v.setCurrency(input.getCurrency());
         v.setTimestamp(input.getTimestamp());
         v.setCurrentPrice(input.getCurrentPrice());
         v.setMovingAverage5CurrentPrice(0);
@@ -155,5 +150,24 @@ public class TickerServiceImpl implements TickerService {
 
             return tickerServiceStatus;
         }
+    }
+
+    @Override
+    public List<Ticker> getTickers(TickerFilter tickerFilter, int size) {
+        List<Ticker> tickers = new ArrayList<>();
+
+        for (Map.Entry<String, Map<String, Deque<TickerValue>>> exchangeEntry : exchangeMap.entrySet()) {
+            for (Map.Entry<String, Deque<TickerValue>> currencyEntry : exchangeEntry.getValue().entrySet()) {
+                if ( tickerFilter.filter(exchangeEntry.getKey(), currencyEntry.getKey() ) )  {
+                    Ticker ticker = new Ticker();
+                    ticker.setExchangeName(exchangeEntry.getKey());
+                    ticker.setCurrency(currencyEntry.getKey());
+                    ticker.setValues(getRecentValues(ticker.getExchangeName(), ticker.getCurrency(), size));
+                    tickers.add(ticker);
+                }
+            }
+        }
+
+        return tickers;
     }
 }
