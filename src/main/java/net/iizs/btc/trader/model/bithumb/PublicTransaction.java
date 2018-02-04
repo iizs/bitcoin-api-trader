@@ -1,5 +1,8 @@
 package net.iizs.btc.trader.model.bithumb;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PublicTransaction {
     private String transactionDate;
     private String type;

@@ -56,10 +56,6 @@ public class BithumbApiServiceTests {
         assertEquals("0000", recentTransactionsResponse.getStatus());
     }
 
-    // Defined via command line
-    @Value("${net.iizs.btc.bithumbtrader.secretkey}")
-    private String secretKey;
-
     @Test
     public void testGetBalance() throws IOException {
         Call<BalanceResponse> call = bithumbApiService.getBalance();

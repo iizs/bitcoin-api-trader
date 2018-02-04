@@ -7,7 +7,7 @@
     <groupId>net.iizs.btc</groupId>
     <artifactId>bitcoin-api-trader</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <!--<packaging>war</packaging>-->
+    <packaging>war</packaging>
 
     <name>bitcoin-api-trader</name>
     <description>bitcoin-api-trader</description>
