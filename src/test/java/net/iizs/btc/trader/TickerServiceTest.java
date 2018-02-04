@@ -1,8 +1,9 @@
 package net.iizs.btc.trader;
 
-import net.iizs.btc.trader.model.TickerInput;
-import net.iizs.btc.trader.model.TickerValue;
+import net.iizs.btc.trader.model.*;
 import net.iizs.btc.trader.service.TickerService;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -24,6 +25,11 @@ public class TickerServiceTest {
     @Autowired
     private TickerService tickerSerivce;
 
+    private int feedCount;
+    private List<TickerInput> feedValuesOneXrp;
+    private List<TickerInput> feedValuesTwoXrp;
+    private List<TickerInput> feedValuesOneBtc;
+
     private static final Logger log = LoggerFactory.getLogger(TickerServiceTest.class);
 
     private class DummyTickerInput implements TickerInput {
@@ -32,6 +38,13 @@ public class TickerServiceTest {
         private long currentPrice;
         private Random random;
         private long timestamp;
+
+        public DummyTickerInput(TickerInput tickerInput) {
+            this.exchangeName = tickerInput.getExchangeName();
+            this.currency = tickerInput.getCurrency();
+            this.currentPrice = tickerInput.getCurrentPrice();
+            this.timestamp = tickerInput.getTimestamp();
+        }
 
         public DummyTickerInput(String exchangeName, String currency) {
             this.exchangeName = exchangeName;
@@ -67,11 +80,11 @@ public class TickerServiceTest {
         }
     }
 
-    private static long getAvreage(List<Long> list) {
+    private static long getAvreage(List<TickerInput> list) {
         BigInteger sum = new BigInteger("0");
 
-        for (Long l: list) {
-            sum = sum.add(BigInteger.valueOf(l.longValue()));
+        for (TickerInput l: list) {
+            sum = sum.add(BigInteger.valueOf(l.getCurrentPrice()));
         }
 
         BigInteger avr = sum.divide(BigInteger.valueOf(list.size()));
@@ -79,45 +92,62 @@ public class TickerServiceTest {
         return avr.longValue();
     }
 
-    @Test
-    public void testFeedingData() {
-        TickerInput tickerInputOneXrp = new DummyTickerInput("one", "xrp");
-        TickerInput tickerInputTwoXrp = new DummyTickerInput("two", "xrp");
-        TickerInput tickerInputOneBtc = new DummyTickerInput("one", "btc");
+    // JUnit4 test fixture
+    // https://github.com/junit-team/junit4/wiki/Test-fixtures
 
-        List<Long> valuesOneXrp = new ArrayList<>();
-        List<Long> valuesTwoXrp = new ArrayList<>();
-        List<Long> valuesOneBtc = new ArrayList<>();
+    @Before
+    public void setUp() {
+        TickerInput tickerInputOneXrp;
+        TickerInput tickerInputTwoXrp;
+        TickerInput tickerInputOneBtc;
 
-        int feedCount = 200;
+        tickerInputOneXrp = new DummyTickerInput("one", "xrp");
+        tickerInputTwoXrp = new DummyTickerInput("two", "xrp");
+        tickerInputOneBtc = new DummyTickerInput("one", "btc");
+
+        feedValuesOneXrp = new ArrayList<>();
+        feedValuesTwoXrp = new ArrayList<>();
+        feedValuesOneBtc = new ArrayList<>();
+
+        feedCount = 200;
+
         for (int i=0; i<feedCount; ++i) {
             tickerSerivce.add(tickerInputOneBtc);
             tickerSerivce.add(tickerInputOneXrp);
             tickerSerivce.add(tickerInputTwoXrp);
 
-            valuesOneBtc.add(tickerInputOneBtc.getCurrentPrice());
-            valuesOneXrp.add(tickerInputOneXrp.getCurrentPrice());
-            valuesTwoXrp.add(tickerInputTwoXrp.getCurrentPrice());
+            feedValuesOneBtc.add(new DummyTickerInput(tickerInputOneBtc));
+            feedValuesOneXrp.add(new DummyTickerInput(tickerInputOneXrp));
+            feedValuesTwoXrp.add(new DummyTickerInput(tickerInputTwoXrp));
 
             ((DummyTickerInput) tickerInputOneBtc).next();
             ((DummyTickerInput) tickerInputOneXrp).next();
             ((DummyTickerInput) tickerInputTwoXrp).next();
         }
+    }
 
-        long avrOneXrp5 = getAvreage(valuesOneXrp.subList(feedCount - 5, feedCount));
-        long avrOneXrp20 = getAvreage(valuesOneXrp.subList(feedCount - 20, feedCount));
-        long avrOneXrp90 = getAvreage(valuesOneXrp.subList(feedCount - 90, feedCount));
-        long avrOneXrp120 = getAvreage(valuesOneXrp.subList(feedCount - 120, feedCount));
+    @After
+    public void tearDown() {
+        tickerSerivce.reset();
+    }
 
-        long avrTwoXrp5 = getAvreage(valuesTwoXrp.subList(feedCount - 5, feedCount));
-        long avrTwoXrp20 = getAvreage(valuesTwoXrp.subList(feedCount - 20, feedCount));
-        long avrTwoXrp90 = getAvreage(valuesTwoXrp.subList(feedCount - 90, feedCount));
-        long avrTwoXrp120 = getAvreage(valuesTwoXrp.subList(feedCount - 120, feedCount));
 
-        long avrOneBtc5 = getAvreage(valuesOneBtc.subList(feedCount - 5, feedCount));
-        long avrOneBtc20 = getAvreage(valuesOneBtc.subList(feedCount - 20, feedCount));
-        long avrOneBtc90 = getAvreage(valuesOneBtc.subList(feedCount - 90, feedCount));
-        long avrOneBtc120 = getAvreage(valuesOneBtc.subList(feedCount - 120, feedCount));
+    @Test
+    public void testFeedingData() {
+        long avrOneXrp5 = getAvreage(feedValuesOneXrp.subList(feedCount - 5, feedCount));
+        long avrOneXrp20 = getAvreage(feedValuesOneXrp.subList(feedCount - 20, feedCount));
+        long avrOneXrp90 = getAvreage(feedValuesOneXrp.subList(feedCount - 90, feedCount));
+        long avrOneXrp120 = getAvreage(feedValuesOneXrp.subList(feedCount - 120, feedCount));
+
+        long avrTwoXrp5 = getAvreage(feedValuesTwoXrp.subList(feedCount - 5, feedCount));
+        long avrTwoXrp20 = getAvreage(feedValuesTwoXrp.subList(feedCount - 20, feedCount));
+        long avrTwoXrp90 = getAvreage(feedValuesTwoXrp.subList(feedCount - 90, feedCount));
+        long avrTwoXrp120 = getAvreage(feedValuesTwoXrp.subList(feedCount - 120, feedCount));
+
+        long avrOneBtc5 = getAvreage(feedValuesOneBtc.subList(feedCount - 5, feedCount));
+        long avrOneBtc20 = getAvreage(feedValuesOneBtc.subList(feedCount - 20, feedCount));
+        long avrOneBtc90 = getAvreage(feedValuesOneBtc.subList(feedCount - 90, feedCount));
+        long avrOneBtc120 = getAvreage(feedValuesOneBtc.subList(feedCount - 120, feedCount));
 
         assertEquals(avrOneBtc5, tickerSerivce.getLast("one", "btc").getMovingAverage5CurrentPrice());
         assertEquals(avrOneBtc20, tickerSerivce.getLast("one", "btc").getMovingAverage20CurrentPrice());
@@ -133,10 +163,69 @@ public class TickerServiceTest {
         assertEquals(avrTwoXrp20, tickerSerivce.getLast("two", "xrp").getMovingAverage20CurrentPrice());
         assertEquals(avrTwoXrp90, tickerSerivce.getLast("two", "xrp").getMovingAverage90CurrentPrice());
         assertEquals(avrTwoXrp120, tickerSerivce.getLast("two", "xrp").getMovingAverage120CurrentPrice());
+    }
 
-        List<TickerValue> list;
+    @Test
+    public void testGetRecentValues() {
+        List<TickerValue> tickerValues;
 
-        list = tickerSerivce.getRecentValues("one", "btc", 10);
-        assertEquals(10, list.size());
+        int testSize = 100;
+
+        tickerValues = tickerSerivce.getRecentValues("one", "btc", testSize);
+        assertEquals(testSize, tickerValues.size());
+
+        List<TickerInput> feedValues = feedValuesOneBtc.subList(feedCount - testSize, feedCount);
+
+        for (int i=0; i<testSize; ++i) {
+            assertEquals(feedValues.get(i).getCurrentPrice(), tickerValues.get(i).getCurrentPrice());
+        }
+    }
+
+    @Test
+    public void testGetStatus() {
+        TickerServiceStatus serivceStatus = tickerSerivce.getStatus();
+
+        assertEquals(3, serivceStatus.getTickerSize());
+        assertEquals( feedValuesTwoXrp.get(feedCount-1).getTimestamp(), serivceStatus.getLastUpdateTimestamp());
+        assertEquals(feedCount * 3, serivceStatus.getTickerValuesSize());
+
+        TickerStatus tickerStatus = serivceStatus.getTickerStatus().get("two").get("xrp");
+        assertEquals("two", tickerStatus.getExchangeName());
+        assertEquals("xrp", tickerStatus.getCurrency());
+        assertEquals( feedValuesTwoXrp.get(feedCount-1).getTimestamp(), tickerStatus.getLastUpdateTimestamp());
+        assertEquals( feedValuesTwoXrp.size(), tickerStatus.getSize());
+    }
+
+    @Test
+    public void testGetTickers() {
+        List<Ticker> tickers;
+        int size = 100;
+
+        // 모두 반환. 총 3개
+        tickers = tickerSerivce.getTickers((String e, String c) -> true, size);
+        assertEquals(3, tickers.size());
+
+        // currency == "xrp"만 반환. 2개
+        tickers = tickerSerivce.getTickers((String e, String c) -> c.equals("xrp"), size);
+        assertEquals(2, tickers.size());
+        for(Ticker t : tickers) {
+            assertEquals("xrp", t.getCurrency());
+        }
+
+        // exchange name == "one"만 반환. 2개
+        tickers = tickerSerivce.getTickers((String e, String c) -> e.equals("one"), size);
+        assertEquals(2, tickers.size());
+        for(Ticker t : tickers) {
+            assertEquals("one", t.getExchangeName());
+        }
+
+        // exchange name == "one" && currency == "xrp"만 반환. 1개
+        tickers = tickerSerivce.getTickers((String e, String c) -> e.equals("one") && c.equals("xrp"), size);
+        assertEquals(1, tickers.size());
+        for(Ticker t : tickers) {
+            assertEquals("one", t.getExchangeName());
+            assertEquals("xrp", t.getCurrency());
+        }
+
     }
 }

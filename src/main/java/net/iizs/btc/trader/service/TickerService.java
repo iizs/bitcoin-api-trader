@@ -12,6 +12,8 @@ public interface TickerService {
         boolean filter(String exchangeName, String currency);
     }
 
+    public void reset();
+
     public void add(TickerInput input);
 
     public TickerValue getLast(String exchangeName, String currency);

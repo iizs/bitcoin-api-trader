@@ -21,6 +21,11 @@ public class TickerServiceImpl implements TickerService {
     }
 
     @Override
+    public void reset() {
+        exchangeMap.clear();
+    }
+
+    @Override
     public void add(TickerInput input) {
         Map<String, Deque<TickerValue>> currencyMap = exchangeMap.get(input.getExchangeName());
         if (currencyMap == null) {
